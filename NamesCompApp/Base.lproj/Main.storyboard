@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Welcome View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="NamesCompApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="WelcomeViewController" customModule="NamesCompApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -34,7 +34,7 @@
                                     <fontDescription key="titleFontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="rv9-Qe-Dgo" kind="show" id="dXw-rc-H1e"/>
+                                    <action selector="showResultButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="Chy-7Q-yhq"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="IQG-5a-vPf">
@@ -63,12 +63,18 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yzj-c3-5Or">
                                                 <rect key="frame" x="0.0" y="0.0" width="130" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="B0q-fS-pOd"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BjO-ss-dQp">
                                                 <rect key="frame" x="0.0" y="64" width="130" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="BYZ-38-t0r" id="qGj-n0-fFs"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                     </stackView>
@@ -87,15 +93,21 @@
                             <constraint firstItem="IQG-5a-vPf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="zEh-OR-0z3"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="partnersNameTF" destination="BjO-ss-dQp" id="3du-TU-IfY"/>
+                        <outlet property="showResultButton" destination="4sh-Yo-DVP" id="mOJ-nI-DSd"/>
+                        <outlet property="yourNameTF" destination="yzj-c3-5Or" id="5XQ-IJ-T4l"/>
+                        <segue destination="rv9-Qe-Dgo" kind="show" identifier="goToResult" id="uBo-UF-I0s"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="30" y="70"/>
         </scene>
-        <!--View Controller-->
+        <!--Result View Controller-->
         <scene sceneID="TMF-Jj-RcT">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="rv9-Qe-Dgo" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="rv9-Qe-Dgo" customClass="ResultViewController" customModule="NamesCompApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GEO-D2-o9J">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -130,6 +142,9 @@
                                 <buttonConfiguration key="configuration" style="filled" title="Go Back">
                                     <fontDescription key="titleFontDescription" name="Helvetica-Bold" family="Helvetica" pointSize="18"/>
                                 </buttonConfiguration>
+                                <connections>
+                                    <segue destination="PwT-WR-sf9" kind="unwind" unwindAction="unwindSegueToWelcomeVCWithSegue:" id="ZNy-uO-1QZ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="50%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hi4-72-8L1">
                                 <rect key="frame" x="139" y="256" width="42" height="24"/>
@@ -154,8 +169,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="xCJ-6x-8oC"/>
+                    <connections>
+                        <outlet property="namesLabel" destination="OQV-jJ-ETb" id="5lm-lU-Tk6"/>
+                        <outlet property="progressView" destination="pSP-K8-H3w" id="ydo-XQ-9eF"/>
+                        <outlet property="resultValueLabel" destination="hi4-72-8L1" id="pOB-H6-KLA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LgL-2m-hZo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="PwT-WR-sf9" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="758" y="70"/>
         </scene>
